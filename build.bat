@@ -3,4 +3,4 @@ pyinstaller main.py ^
     --clean ^
     --windowed --noconsole ^
     --hidden-import "clr" --name "Snippets" ^
-    --icon "icon.ico" 
+    --icon "icon.ico"
