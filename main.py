@@ -6,6 +6,7 @@ from modules.StartPage import StartPage
 from modules.SnippetsNew import SnippetsNew
 from modules.AboutUs import AboutUs
 
+from utils.config import config
 
 # main content class
 class MainContent(Tk):
@@ -16,7 +17,7 @@ class MainContent(Tk):
         Tk.__init__(self)
 
         # title
-        self.title("Snippets app")
+        self.title(config["title"])
 
         # init frame
         self._frame = None
@@ -55,14 +56,18 @@ class MainContent(Tk):
         menubar = Menu(self)
 
         file_menu = Menu(menubar, tearoff=0)
-        file_menu.add_command(label="New snippet", command=lambda: self.switch(SnippetsNew))
+        file_menu.add_command(
+            label=config["new_snippet"], command=lambda: self.switch(SnippetsNew)
+        )
         file_menu.add_separator()
-        file_menu.add_command(label="Exit", command=self.quit)
-        menubar.add_cascade(label="File", menu=file_menu)
+        file_menu.add_command(label=config["exit"], command=self.quit)
+        menubar.add_cascade(label=config["file"], menu=file_menu)
 
         help_menu = Menu(menubar, tearoff=0)
-        help_menu.add_command(label="About Us", command=lambda: self.switch(AboutUs))
-        menubar.add_cascade(label="Help", menu=help_menu)
+        help_menu.add_command(
+            label=config["about_us"], command=lambda: self.switch(AboutUs)
+        )
+        menubar.add_cascade(label=config["help"], menu=help_menu)
 
         self.configure(menu=menubar)
 

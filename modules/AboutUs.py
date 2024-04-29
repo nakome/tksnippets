@@ -1,9 +1,13 @@
 from tkinter import *
 import webbrowser
-from tkinter import ttk
+import ttkbootstrap as ttk
+from ttkbootstrap import Style
 
 # import StartPage if cancel
 from modules import StartPage as s
+
+# Read data from a JSON file
+from utils.config import config
 
 
 class AboutUs(Frame):
@@ -14,21 +18,39 @@ class AboutUs(Frame):
         # init frame
         Frame.__init__(self, master)
 
+        style = Style()
+
         # label info
-        Label(self,text="Version: 1.0.0").pack(padx=10,anchor="w")
-        Label(self,text="Developer: Moncho Varela").pack(padx=10,anchor="w")
-        Label(self,text="Date: June 10 2019").pack(padx=10,anchor="w")
+        self.txt = Label(self, text=config["about_txt"])
+        self.txt.configure(
+            width=60,
+            height=10,
+            font=("Helvetica", 10, "bold"),
+            fg=style.colors.light,
+            bg=style.colors.dark,
+        )
+        self.txt.pack(anchor="w")
 
-        self.github = Label(self, text="Github source 🚀", fg="blue", cursor="hand2")
-        self.website = Label(self, text="My Website 👩‍🚀", fg="blue", cursor="hand2")
+        self.github = Label(self, text=config["link_txt_1"])
+        self.github.configure(fg=style.colors.primary, cursor="hand2")
+        self.website = Label(self, text=config["link_txt_2"])
+        self.website.configure(fg=style.colors.primary, cursor="hand2")
 
-        self.website.bind("<Button-1>",lambda e: self.callback("https://monchovarela.es"))
+        self.website.bind("<Button-1>", lambda e: self.callback(config["link_href_2"]))
         self.website.pack(padx=10, anchor="w")
 
-        self.github.bind("<Button-1>",lambda e: self.callback("https://github.com/monchovarela/tksnippets"))
+        self.github.bind(
+            "<Button-1>",
+            lambda e: self.callback(config["link_href_1"]),
+        )
         self.github.pack(padx=10, anchor="w")
 
-        btn = ttk.Button(self, text="Back", width=8, command=lambda: master.switch(s.StartPage) )
+        btn = ttk.Button(
+            self,
+            text=config["btn_back"],
+            width=8,
+            command=lambda: master.switch(s.StartPage),
+        )
         btn.pack(padx=10, pady=10, anchor="w")
 
     def callback(self, url):

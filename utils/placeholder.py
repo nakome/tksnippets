@@ -2,7 +2,7 @@ import tkinter as tk
 import ttkbootstrap as ttk
 
 class EntryWithPlaceholder(ttk.Entry):
-    def __init__(self, master=None, placeholder="PLACEHOLDER", color="grey"):
+    def __init__(self, master=None, placeholder="PLACEHOLDER", color="light grey"):
         super().__init__(master)
 
         self.placeholder = placeholder
@@ -19,10 +19,13 @@ class EntryWithPlaceholder(ttk.Entry):
         self["foreground"] = self.placeholder_color
 
     def foc_in(self, *args):
+        print("focus in")
+        print(self['foreground'])
         if self["foreground"] == self.placeholder_color:
-            self.delete("0", "end")
+            self.delete(0, "end")
             self["foreground"] = self.default_fg_color
 
     def foc_out(self, *args):
+        print("focus out")
         if not self.get():
             self.put_placeholder()

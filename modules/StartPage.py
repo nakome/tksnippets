@@ -8,9 +8,11 @@ from modules.SnippetsEdit import SnippetsEdit
 # import database
 from utils.database import database
 
-# import custom enty with placeholder
+# import custom entry with placeholder
 from utils.placeholder import EntryWithPlaceholder
 
+# import config
+from utils.config import config
 
 class StartPage(Frame):
 
@@ -21,7 +23,7 @@ class StartPage(Frame):
 
         self.master = master
 
-        self.e = EntryWithPlaceholder(self, "Search")
+        self.e = EntryWithPlaceholder(self, config['search'])
         self.e.pack(side="top", fill="x", ipady=5, ipadx=5)
         self.e.bind("<KeyPress>", self.search_by_title)
 
@@ -48,15 +50,15 @@ class StartPage(Frame):
             self, height=13, columns=("uid", "title", "description", "date", "category")
         )
         self.tree["show"] = "headings"
-        self.tree.heading("uid", text="Uid")
+        self.tree.heading("uid", text=config["t_uid"])
         self.tree.column("uid", width=40)
-        self.tree.heading("title", text="Title")
+        self.tree.heading("title", text=config["t_title"])
         self.tree.column("title", width=120)
-        self.tree.heading("description", text="Description")
+        self.tree.heading("description", text=config["t_description"])
         self.tree.column("description", width=150)
-        self.tree.heading("date", text="Created")
+        self.tree.heading("date", text=config["t_created"])
         self.tree.column("date", width=100)
-        self.tree.heading("category", text="Category")
+        self.tree.heading("category", text=config["t_category"])
         self.tree.column("category", width=100)
 
         # insert database items
